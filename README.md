@@ -1,4 +1,4 @@
-# Shop Manager (adapted from Purestring [Purestring](https://github.com/blawson69/PurseStrings)
+# Shop Manager (adapted from [Purestring](https://github.com/blawson69/PurseStrings))
 This [Roll20](http://roll20.net/) script handles currency and currency exchanges for characters in games using the default [SRD monetary system](https://roll20.net/compendium/dnd5e/Treasure#content). It manages a character's currency and will add/subtract appropriately when collecting loot, paying for goods/services, etc. This script also includes an Inventory system, allowing a dynamic Merchant experience. You can create any number of Merchant NPCs with an Inventory that is updated with every purchase.
 
 This script is for use with the [5e Shaped Sheet](http://github.com/mlenser/roll20-character-sheets/tree/master/5eShaped) and the D&D 5th Edition OGL Sheet.
