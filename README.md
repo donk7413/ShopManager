@@ -43,16 +43,21 @@ Price must be a single denomination, i.e. "2cp" or "1200gp" and not "2cp, 1200gp
 Here is an example GM Note for a small town blacksmith Merchant:
 ```
 PurseStrings Inventory
+Armes et Armures
+Fronde|1sp|39|0,1|,Range|Item Type#Ranged Weapon,Damage# 1d4,Damage Type# Bludgeoning,Range# 30/120|Fronde|0|0
+Bâton|2sp|39|2|Versatile|Item Type#Melee Weapon,Damage# 1d6,Damage Type# Bludgeoning,Alternate Damage# 1d8,Alternate Damage Type# Bludgeoning|Bâton|0|0
+Gourdin|1sp|39|1|Light|Item Type#Melee Weapon,Damage# 1d4,Damage Type# Bludgeoning|Gourdin|0|0
+Serpe|1gp|39|1|Light|Item Type#Melee Weapon,Damage# 1d4,Damage Type# Slashing|Serpe|0|0
+Dague|2gp|39|0,5|Finesse,Light,Thrown,Range|Item Type#Melee Weapon,Damage# 1d4,Damage Type# Piercing,Range# 20/60|Dague|0|0
+Consommables
 Services
-Sword Sharpening|2gp|
-Armor Polishing|5gp|
-Weapons
-Dagger|2gp|5
-Hand Axe|5gp|3
-Shortsword|10gp|1
-Adventuring Gear
-Potion of Healing|50gp|4
-Alchemist's Fire|50gp|2
+Investissements
+Investissement|100gp|10|0||Item Type#Investissements|Investissement|0|0
+Potions
+Marchandises
+Montures
+Bateaux
+Batiment
 ```
 If a Merchant buys an item from a player that is not already in their inventory, it will be added to the list. It is assumed that Merchants will buy at half their selling cost, so the inventory price on new items will be double the amount at which it was purchased. Updates to inventory outside of purchases may be done by editing the GM Notes field. See the [`--buy` command](#--buy) for options and information.
 
