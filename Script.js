@@ -1,13 +1,10 @@
 /*
-PurseStrings
+ShopManager from PurseStrings
 A currency and merchant inventory management system for Roll20.
 
 On Github:	https://github.com/blawson69/PurseStrings
-Contact me: https://app.roll20.net/users/1781274/ben-l
+On Github:	https://github.com/donk7413/ShopManager
 
-Like this script? Buy me a coffee:
-    https://venmo.com/theRealBenLawson
-    https://paypal.me/theRealBenLawson
 */
 
 var PurseStrings = PurseStrings || (function () {
@@ -15,7 +12,7 @@ var PurseStrings = PurseStrings || (function () {
 
     //---- INFO ----//
 
-    var version = '5.7',
+    var version = '1.0',
     debugMode = false,
     styles = {
         box:  'background-color: #fff; border: 1px solid #000; padding: 8px 10px; border-radius: 6px; margin-left: -40px; margin-right: 0px;',
@@ -995,7 +992,7 @@ var PurseStrings = PurseStrings || (function () {
                                     if (showStock === true) {
                                         if (item.quantity !== 0 && item.quantity !== '0') {
                                             let quant = (item.quantity == -1 || item.quantity == '') ? '' : ' <span style=\'' + styles.right + '\'>(' + item.quantity + ' avail.)</span>'
-                                            invList += '<li><span style=\'' + styles.fixedShow + '\'><a style=\'' + styles.textButton + '\' href="!ps --buy --buyer|&#64;&lbrace;selected|token_id&rbrace; --seller|' + token_id + ' --amt|' + item.price + ' --item|' +  item.name + ' --weight|' +  item.weight + ' --prop|' +  item.prop + ' --mod|' +  item.mod + ' --desc|' +  item.desc +' --service|' +  item.service +'--treasure|' +  item.treasure +'" title="Buy ' + item.name +'"><b>' + item.name +'</b></a></span> - ' +  item.price + quant + '</li>';
+                                            invList += '<li><span style=\'' + styles.fixedShow + '\'><a style=\'' + styles.textButton + '\' href="!ps --buy --buyer|&#64;&lbrace;selected|token_id&rbrace; --seller|' + token_id + ' --amt|' + item.price + ' --item|' +  item.name + ' --weight|' +  item.weight + ' --prop|' +  item.prop + ' --mod|' +  item.mod + ' --desc|' +  item.desc +' --service|' +  item.service +'--treasure|' +  item.treasure +'" title="Buy ' + item.name +  " : prop(" +  item.prop + "),mod(" +  item.mod + ")," + item.desc +'"><b>' + item.name +'</b></a></span> - ' +  item.price + quant + '</li>';
                                         } else {
                                             invList += '<li><span style=\'' + styles.fixedShow + 'cursor: not-allowed;\'><b style=\'' + styles.unavail + '\' title="' + item.name + '">' +  item.name + '</b></span> <span style=\'' + styles.right + '\'><i>out of stock</i></span></li>';
                                         }
