@@ -465,7 +465,7 @@ var PurseStrings = PurseStrings || (function () {
         // !ps --give  --giver|<giver_id> --taker|<taker_id> --amt|50gp
         var rb = /\-\-(buyer|giver)\|/gi, rs = /\-\-(seller|taker)\|/gi, ri = /\-\-item\|/gi, ra = /\-\-amt\|/gi,
         rw = /\-\-weight\|/gi,rp = /\-\-prop\|/gi,rm = /\-\-mod\|/gi,rd = /\-\-desc\|/gi,rserv = /\-\-service\|/gi,rtreas=/\-\-treasure\|/gi,
-        buyer_token_id, seller_token_id, buyer_token_name = '', seller_token_name = '', amount = '', weight = '', prop = 'rien', mod = 'rien', desc = 'rien', service = 0, treasure=0;
+        buyer_token_id, seller_token_id, buyer_token_name = '', seller_token_name = '', amount = '', weight = '', prop = 'rien', mod = 'rien', descri = 'rien', service = 0, treasure=0;
         var seller, buyer, merchant_name = '', item = '', rx = /\-\-give/gi, commands = msg.content.split(/\s*\-\-/i);
         var giving = (rx.test(msg.content)) ? true : false;
 
@@ -476,12 +476,12 @@ var PurseStrings = PurseStrings || (function () {
         if (rw.test(msg.content)) weight = _.find(commands, function (tmpStr) { return tmpStr.startsWith('weight|'); }).split('|')[1].trim();
         if (rp.test(msg.content)) prop = _.find(commands, function (tmpStr) { return tmpStr.startsWith('prop|'); }).split('|')[1].trim();
         if (rm.test(msg.content)) mod = _.find(commands, function (tmpStr) { return tmpStr.startsWith('mod|'); }).split('|')[1].trim();
-        if (rd.test(msg.content)) desc = _.find(commands, function (tmpStr) { return tmpStr.startsWith('desc|'); }).split('|')[1].trim();
+        if (rd.test(msg.content)) descri = _.find(commands, function (tmpStr) { return tmpStr.startsWith('desc|'); }).split('|')[1].trim();
         if (rserv.test(msg.content)) service = _.find(commands, function (tmpStr) { return tmpStr.startsWith('service|'); }).split('|')[1].trim();
         if (rtreas.test(msg.content)) treasure = _.find(commands, function (tmpStr) { return tmpStr.startsWith('treasure|'); }).split('|')[1].trim();
         
         //log
-        //adminDialog('Info','item '+item +' weight ' + weight+' prop '+prop+' mod '+mod+' desc '+desc+' service '+service+' treasure '+treasure );
+        //adminDialog('Info','item '+item +' weight ' + weight+' prop '+prop+' mod '+mod+' desc '+descri+' service '+service+' treasure '+treasure );
       
         
 		if (buyer_token_id) {
@@ -537,23 +537,23 @@ var PurseStrings = PurseStrings || (function () {
                             var token = getObj('graphic', buyer_token_id);
                             var char = getObj('character', token.get('represents')), purchased, items = '', tmpItems;
                             if (char) {
-                                recordPurchase(buyer_token_id, desc,weight,prop,mod,desc,service,1);
+                                recordPurchase(buyer_token_id, desc,weight,prop,mod,descri,service,1);
                                 //adminDialog('Buyer OK','');
                             }
                             adminDialog('Transaction Effectuée', buyer_token_name + ' paie ' + seller.get('name') + ' ' + amountprice + ' pour un ' + desc + '.');
                         } else {
                             if (!isService(seller_token_id, desc) && state['PURSESTRINGS'].recPurchases)
-                             recordPurchase(buyer_token_id, desc,weight,prop,mod,desc,service,1);
+                             recordPurchase(buyer_token_id, desc,weight,prop,mod,descri,service,1);
                             //adminDialog('Buyer OK','');
                             showDialog('Transaction Effectuée', buyer.get('name'), 'Vous payez ' + seller_token_name + ' ' + amountprice + ' pour un ' + desc + '.', buyer.get('name'), true);
                         }
 
                         if (isMerchant(seller_token_id)) {
                             updateInventory(seller_token_id, item, amount, 'remove');
-                            recordPurchase(seller_token_id, desc,weight,prop,mod,desc,service,0);
+                            recordPurchase(seller_token_id, desc,weight,prop,mod,descri,service,0);
                             adminDialog('Vente Effectuée', buyer.get('name') + ' achete un ' + desc + ' de ' + seller_token_name + ' pour ' + amountprice + '.');
                         } else {
-                            recordPurchase(seller_token_id, desc,weight,prop,mod,desc,service,0);
+                            recordPurchase(seller_token_id, desc,weight,prop,mod,descri,service,0);
                             showDialog('Vente Effectuée', seller.get('name'), buyer_token_name + ' vous paie ' + amountprice + ' pour un ' + desc + '.', seller.get('name'), true);
                         }
                     }
@@ -638,7 +638,7 @@ var PurseStrings = PurseStrings || (function () {
 
     recordPurchase = function (token_id, new_item, new_weight,new_prop,new_mod,new_desc,isService,isbuy) {
          //donk7413
-      //adminDialog('Info Record','item '+new_item +' weight ' + new_weight+' prop '+new_prop+' mod '+new_mod+' desc '+new_desc+' service '+isService);
+      adminDialog('Info Record','item '+new_item +' weight ' + new_weight+' prop '+new_prop+' mod '+new_mod+' desc '+new_desc+' service '+isService);
         
         var potions = (typeof PotionManager !== 'undefined' && typeof PotionManager.getPotions !== 'undefined') ? _.pluck(PotionManager.getPotions(), 'name') : [];
         var gear = (typeof GearManager !== 'undefined' && typeof GearManager.getGear !== 'undefined') ? _.pluck(GearManager.getGear(), 'name') : [];
@@ -651,7 +651,7 @@ var PurseStrings = PurseStrings || (function () {
             var token = getObj('graphic', token_id);
             var char = getObj('character', token.get('represents')), purchased, items = '', tmpItems;
             if (char) {
-                  adminDialog('Info','Perso trouvé '+ char.get('name'));
+                  //adminDialog('Info','Perso trouvé '+ char.get('name'));
                 var field = findObjs({ type: 'attribute', characterid: char.get('id'), name: (state['PURSESTRINGS'].sheet == '5e Shaped' ? 'miscellaneous_notes' : 'treasure') })[0];
                 if (!field) field = createObj("attribute", {characterid: char.get('id'), name: (state['PURSESTRINGS'].sheet == '5e Shaped' ? 'miscellaneous_notes' : 'treasure'), current: ''});
                 var notes = field.get('current');
@@ -684,7 +684,7 @@ var PurseStrings = PurseStrings || (function () {
                 
                 if(isService == 0)
                 {
-                      adminDialog('Info','Pas un service donc additem');
+                      //adminDialog('Info','Pas un service donc additem');
                     var oglItem = {
                         // ==============================================================================
                         // ITEM_ITEM_PREFIX + ROW_ID + ATTR_SUFFIX ======================================
@@ -821,7 +821,7 @@ var PurseStrings = PurseStrings || (function () {
                         // Creates a brand new item in an inventory
                         createItem: function createItem(subject, item) {
                           log('Creating new item for ' + subject.id + '.');
-                            adminDialog('Info','Creating new item for' + subject.name + '.');
+                            //adminDialog('Info','Creating new item for' + subject.name + '.');
                           var newRowId = oglItem.generateRowID();
                           oglItem.createItemAttr(subject.id, newRowId, oglItem.COUNT_SUFFIX, '1');
                           oglItem.createItemAttr(subject.id, newRowId, oglItem.NAME_SUFFIX, item.Name);
