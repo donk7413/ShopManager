@@ -1102,7 +1102,11 @@ var PurseStrings = PurseStrings || (function () {
                     item.quantity = '';
                 }
                 
-                item.weight = parseInt(a[3]);
+                 if (a[3] != '') {
+                    item.weight = a[3];
+                } else {
+                    item.weight = '1';
+                }
                 
                 if (a[4] != '') {
                     item.prop = a[4];
