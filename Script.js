@@ -499,28 +499,33 @@ var PurseStrings = PurseStrings || (function () {
             }
         }
         var amountprice = amount;
-        if(treasure == 1)
+        if(treasure == 1 || buyer_token_name.includes('Inventaire ') || seller_token_name.includes('Inventaire '))
         {
             amountprice = 0;
+            treasure = 1;
+             adminDialog('Trésor', 'Inventaire ou trésor détécté');
         }
 		if (buyer && isPursed(buyer.get('id')) && seller && isPursed(seller.get('id'))) {
 		    
             var purchased = true;
+            var sold = true;
             
             if(treasure == 0)
             {
                 purchased = changePurse(amount, buyer.get('id'), 'subt');
+                sold = changePurse(amount, seller.get('id'), 'add');
             }
             else
             {
                 purchased = true;
+                sold = true;
                 adminDialog('Trésor', 'Le prix est de 0');
                 
             }
             
             
             if (purchased) {
-                var sold = changePurse(amount, seller.get('id'), 'add');
+                
                 if (sold) {
                     var desc = item.split('~')[0].trim();
                     if (giving) {
@@ -790,6 +795,8 @@ var PurseStrings = PurseStrings || (function () {
                           var countAttr = oglItem.getItemAttr(subject, rowId, oglItem.COUNT_SUFFIX);
                           var oldCountStr = countAttr ? countAttr.get('current') : '0';
                           var newCount = parseInt(oldCountStr, 10) + modifierQuantity;
+                           adminDialog('Info',JSON.stringify(countAttr));
+                           adminDialog('Info',newCount);
                           countAttr.setWithWorker({ current: '' + newCount });
                           if(newCount == 0)
                           {
